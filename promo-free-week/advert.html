@@ -2,156 +2,200 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Free Week Advert</title>
+<title>Free Week Reel</title>
 <style>
-  :root{
-    --bg:#070b14; --bg2:#0d1526; --gold:#f5c542; --green:#22c55e; --red:#ef4444; --ink:#f4f6fb; --muted:#9aa6bf;
-  }
+  @font-face{font-family:Anton;src:url(fonts/anton-latin-400-normal.woff2) format("woff2")}
+  @font-face{font-family:JBM;font-weight:700;src:url(fonts/jetbrains-mono-latin-700-normal.woff2) format("woff2")}
+  :root{--black:#0a0a0a;--red:#e3262b;--white:#f7f5f2;--cream:#efe6d4;--ink:#141414;--grey:#8b8b8b;--green:#22c55e}
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{width:1080px;height:1920px;overflow:hidden;background:var(--bg)}
-  body{font-family:"Inter","DejaVu Sans",sans-serif;color:var(--ink);position:relative}
-  #bg{position:absolute;inset:0;background:
-      radial-gradient(1200px 900px at 50% 30%, #13213d 0%, transparent 70%),
-      radial-gradient(900px 700px at 80% 90%, #1b1a10 0%, transparent 70%),
-      linear-gradient(180deg,var(--bg2),var(--bg));}
-  #grid{position:absolute;inset:0;opacity:.18;
-      background-image:linear-gradient(#2a3a5c 1px,transparent 1px),linear-gradient(90deg,#2a3a5c 1px,transparent 1px);
-      background-size:90px 90px;}
-  #chart{position:absolute;left:0;right:0;bottom:380px;height:900px;opacity:.35}
-  .scene{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0}
-  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 90px}
-  header{position:absolute;top:120px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:20px;z-index:5}
-  .logo{width:76px;height:76px;border-radius:20px;background:linear-gradient(135deg,var(--gold),#c98d12);
-      display:grid;place-items:center;font-weight:900;font-size:44px;color:#111;box-shadow:0 8px 30px #f5c54255}
-  .brand{font-weight:800;letter-spacing:.14em;font-size:34px}
-  .brand small{display:block;font-weight:600;letter-spacing:.32em;font-size:20px;color:var(--gold)}
-  h1{font-weight:900;line-height:1.02;letter-spacing:-.02em}
-  .gold{color:var(--gold)} .green{color:var(--green)}
-  .pill{display:inline-block;padding:18px 40px;border-radius:999px;font-weight:800;font-size:40px;
-      background:var(--gold);color:#111;box-shadow:0 10px 40px #f5c54255}
-  .item{display:flex;align-items:center;gap:34px;background:#111a2ef2;border:2px solid #ffffff1f;border-radius:34px;
-      padding:34px 44px;margin:18px 0;width:900px;text-align:left}
-  .icon{flex:none;width:92px;height:92px;border-radius:26px;display:grid;place-items:center;font-size:50px;font-weight:900}
-  .item p{font-size:42px;font-weight:700;line-height:1.18}
-  .item p span{display:block;font-size:30px;font-weight:500;color:var(--muted);margin-top:8px}
-  .num{background:var(--gold);color:#111}
-  .chk{background:#22c55e22;color:var(--green);border:3px solid var(--green)}
-  .label{font-size:34px;font-weight:800;letter-spacing:.3em;color:var(--gold);margin-bottom:30px}
-  #disc{position:absolute;left:90px;right:90px;top:1500px;text-align:center;font-size:24px;line-height:1.4;color:#8590a8;z-index:5}
-  .day{display:flex;align-items:center;gap:30px;width:900px;background:#111a2ef2;border:2px solid #ffffff1f;border-radius:26px;
-      padding:22px 34px;margin:10px 0;text-align:left}
-  .day b{flex:none;width:110px;font-size:32px;font-weight:800;color:var(--gold);letter-spacing:.06em}
-  .day span{font-size:38px;font-weight:700}
-  .day.live{border-color:var(--red);background:#2a1016f2}
-  .day.live b{color:var(--red)}
-  .dot{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--red);margin-right:12px;vertical-align:middle}
-  .bar{width:820px;height:26px;border-radius:99px;background:#ffffff14;overflow:hidden;margin-top:34px}
-  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--red));border-radius:99px}
-  .tg{display:inline-flex;align-items:center;gap:20px;padding:26px 50px;border-radius:999px;background:#229ED9;color:#fff;
-      font-weight:800;font-size:46px;box-shadow:0 10px 40px #229ED955}
+  html,body{width:1080px;height:1920px;overflow:hidden;background:var(--black)}
+  body{font-family:Inter,"DejaVu Sans",sans-serif;color:var(--white);position:relative}
+  .layer{position:absolute;inset:0}
+  #dark{background:radial-gradient(900px 700px at 50% 18%,#3b0b0d 0%,#170506 45%,var(--black) 75%)}
+  #cream{background:var(--cream);opacity:0}
+  #cream::before{content:"";position:absolute;inset:0;background-image:linear-gradient(#d9ccb4 2px,transparent 2px);background-size:100% 74px;opacity:.55}
+  /* chrome */
+  #kicker{position:absolute;left:84px;top:196px;font-family:JBM;font-weight:700;font-size:30px;letter-spacing:.18em;color:var(--red);z-index:9}
+  #logo{position:absolute;right:84px;top:170px;width:92px;height:92px;border-radius:50%;border:5px solid var(--red);display:grid;place-items:center;
+        font-family:Anton;font-size:52px;color:var(--white);background:#120405;z-index:9}
+  #footer{position:absolute;left:84px;right:84px;top:1560px;font-family:JBM;font-weight:700;font-size:21px;letter-spacing:.06em;color:var(--red);line-height:1.5;z-index:9}
+  /* cards */
+  .card{position:absolute;left:84px;right:84px;top:330px;opacity:0}
+  .hl{font-family:Anton;text-transform:uppercase;line-height:.98;letter-spacing:.005em}
+  .hl .ln{display:block;opacity:0}
+  .red{color:var(--red)}
+  .grey{color:var(--grey)}
+  .box{border:3px solid #ffffff2a;background:#0d0d0dcc;position:relative}
+  .box .tag{position:absolute;left:22px;top:16px;font-family:JBM;font-size:22px;letter-spacing:.14em;color:var(--grey)}
+  table{border-collapse:collapse;width:100%}
+  td{font-family:Inter;font-weight:800;font-size:40px;padding:20px 22px;border-bottom:2px solid #ffffff1c}
+  td.d{font-family:JBM;font-size:30px;color:var(--red);width:150px;letter-spacing:.1em}
+  tr{opacity:0}
+  tr.live td{color:var(--red)}
+  .dots{display:grid;grid-template-columns:repeat(10,1fr);gap:16px;width:600px;margin-top:50px}
+  .dots i{display:block;width:42px;height:42px;border-radius:50%;background:var(--red);opacity:0}
+  .pill{display:inline-flex;align-items:center;gap:18px;font-family:JBM;font-size:38px;letter-spacing:.12em;padding:18px 34px;border:4px solid var(--red);color:var(--red)}
+  .pill b{width:26px;height:26px;border-radius:50%;background:var(--red);display:block}
+  /* cream cards */
+  .cream .hl{color:var(--ink)}
+  .num{font-family:Anton;font-size:250px;line-height:.9;color:var(--red)}
+  .stamp{display:inline-block;margin-top:46px;font-family:JBM;font-size:40px;letter-spacing:.06em;background:var(--ink);color:var(--cream);padding:18px 30px}
+  .stamp.red{background:var(--red);color:#fff}
+  /* caption */
+  #cap{position:absolute;left:90px;right:90px;top:1300px;display:flex;justify-content:center;z-index:8}
+  #cap div{background:#000000d9;padding:22px 34px;font-weight:800;font-size:50px;line-height:1.18;text-align:center;color:var(--white);max-width:900px}
+  #cap .k{color:var(--red)}
+  #cap.light div{background:var(--ink)}
+  #chartsvg{display:block}
 </style>
 </head>
 <body>
-<div id="bg"></div><div id="grid"></div>
-<svg id="chart" viewBox="0 0 1080 900" preserveAspectRatio="none"></svg>
+<div class="layer" id="dark"></div>
+<div class="layer" id="cream"></div>
 
-<header><div class="logo">C</div><div class="brand">CEINT FOREX<small>ACADEMY</small></div></header>
+<div id="kicker">CEINT VIP · FREE WEEK</div>
+<div id="logo">C</div>
 
-<!-- 1 Hook -->
-<section class="scene center" id="s1">
-  <h1 style="font-size:104px">Want to try<br><span class="gold">VIP</span> before<br>you pay?</h1>
-</section>
+<!-- c1 hook -->
+<section class="card" id="c1" data-k="CEINT VIP · FREE WEEK"><h1 class="hl" style="font-size:188px">
+  <span class="ln">Your first</span><span class="ln">week of VIP</span><span class="ln">is <span class="red">free.</span></span></h1></section>
 
-<!-- 2 Offer -->
-<section class="scene center" id="s2">
-  <div class="label">LIMITED PROMO</div>
-  <h1 id="free" style="font-size:250px" class="gold">FREE</h1>
-  <h1 style="font-size:150px;margin-top:-10px">WEEK</h1>
-  <p style="font-size:48px;font-weight:600;margin:40px 0 50px">7 days inside CEINT VIP MEMBERS</p>
-  <div class="pill">First 50 people only</div>
-</section>
+<!-- c2 7 days -->
+<section class="card" id="c2" data-k="FIRST 50 ONLY"><h1 class="hl" style="font-size:300px">
+  <span class="ln">7 days.</span><span class="ln red">$0.</span></h1>
+  <div class="dots" id="dots"></div></section>
 
-<!-- 3 Week schedule -->
-<section class="scene center" id="s3">
-  <div class="label">YOUR VIP WEEK</div>
-  <div class="day" id="d1"><b>MON</b><span>What Is Forex Trading?</span></div>
-  <div class="day" id="d2"><b>TUE</b><span>Deriv's Synthetic Indices</span></div>
-  <div class="day" id="d3"><b>WED</b><span>Points, Lots &amp; Account Size</span></div>
-  <div class="day live" id="d4"><b>THU</b><span><i class="dot"></i>Live chart session</span></div>
-  <div class="day" id="d5"><b>FRI</b><span>Leverage, Margin &amp; Real Costs</span></div>
-  <div class="day" id="d6"><b>SAT</b><span>Reading Candles on Real Charts</span></div>
-</section>
+<!-- c3 week -->
+<section class="card" id="c3" data-k="YOUR VIP WEEK"><h1 class="hl" style="font-size:120px;margin-bottom:40px"><span class="ln">One lesson</span><span class="ln red">every day.</span></h1>
+  <div class="box" style="padding:64px 18px 10px"><span class="tag">WEEK 1 · VIP MEMBERS</span><table>
+  <tr><td class="d">MON</td><td>What is forex trading?</td></tr>
+  <tr><td class="d">TUE</td><td>Deriv's synthetic indices</td></tr>
+  <tr><td class="d">WED</td><td>Points, lots &amp; account size</td></tr>
+  <tr class="live"><td class="d">THU</td><td>● Live chart session</td></tr>
+  <tr><td class="d">FRI</td><td>Leverage, margin &amp; costs</td></tr>
+  <tr><td class="d">SAT</td><td>Reading candles</td></tr></table></div></section>
 
-<!-- 4 Perks -->
-<section class="scene center" id="s4">
-  <div class="label">EVERY LESSON</div>
-  <div class="item" id="g1"><div class="icon chk">✓</div><p>Short 2-minute videos<span>Posted at 08:00, watch any time</span></p></div>
-  <div class="item" id="g2"><div class="icon chk">✓</div><p>Real Deriv charts<span>V75, Boom &amp; Crash, Jump</span></p></div>
-  <div class="item" id="g3"><div class="icon chk">✓</div><p>The exact TradingView tools<span>Plus homework to practise</span></p></div>
-  <div class="item" id="g4"><div class="icon chk">✓</div><p>Sizing for any account<span>From $50 to $5,000</span></p></div>
-</section>
+<!-- c4 real charts -->
+<section class="card" id="c4" data-k="REAL CHARTS"><h1 class="hl" style="font-size:150px;margin-bottom:46px"><span class="ln">Real</span><span class="ln"><span class="red">Deriv</span> charts.</span></h1>
+  <div class="box" style="height:560px"><span class="tag">ILLUSTRATIVE CHART · V75</span><svg id="chartsvg" width="906" height="554" viewBox="0 0 906 554"></svg></div></section>
 
-<!-- 5 How to claim -->
-<section class="scene center" id="s5">
-  <div class="label">HOW TO CLAIM</div>
-  <div class="item" id="h1"><div class="icon num">1</div><p>Open a NEW Deriv account<span>Using the link in our Telegram</span></p></div>
-  <div class="item" id="h2"><div class="icon num">2</div><p>Message our bot "FREE"<span>@CeintAcademyPostBot</span></p></div>
-  <div class="item" id="h3"><div class="icon num">3</div><p>Send your Deriv ID<span>Looks like CR1234567</span></p></div>
-  <div class="item" id="h4" style="border-color:var(--green);background:#0f2a1cf2"><div class="icon chk">✓</div><p>You're in VIP for 7 days<span>Once we confirm your ID</span></p></div>
-</section>
+<!-- c5 tools -->
+<section class="card" id="c5" data-k="EVERY LESSON"><h1 class="hl" style="font-size:150px;margin-bottom:46px"><span class="ln">The exact</span><span class="ln"><span class="red">tools</span> we use.</span></h1>
+  <div class="box" style="height:560px"><span class="tag">ILLUSTRATIVE CHART · TRADINGVIEW</span><svg id="toolsvg" width="906" height="554" viewBox="0 0 906 554"></svg></div></section>
 
-<!-- 6 After -->
-<section class="scene center" id="s6">
-  <div class="label">AFTER YOUR FREE WEEK</div>
-  <h1 style="font-size:86px;margin-bottom:50px">Love it? <span class="gold">Stay.</span></h1>
-  <div class="item" style="width:860px"><div class="icon num" style="font-size:40px">$50</div><p>Forex Decoded (the book)<span>+ your first full VIP month</span></p></div>
-  <p style="font-size:38px;font-weight:600;color:var(--muted);margin-top:40px">No card needed for the free week.</p>
-</section>
+<!-- c6 sizing -->
+<section class="card" id="c6" data-k="RISK SIZING"><h1 class="hl" style="font-size:250px"><span class="ln">$50</span><span class="ln grey" style="font-size:120px">or</span><span class="ln red">$5,000.</span></h1></section>
 
-<!-- 7 CTA -->
-<section class="scene center" id="s7">
-  <h1 style="font-size:96px">Only <span class="gold">50</span> places.</h1>
-  <h1 style="font-size:96px;margin-bottom:60px">Claim yours now.</h1>
-  <div class="tg" id="cta">✈ t.me/CeintForexAcademy</div>
-  <p style="font-size:36px;font-weight:600;color:var(--muted);margin-top:40px">Steps are in the pinned post · or message<br><span style="color:var(--ink)">FREE to @CeintAcademyPostBot</span></p>
-  <div class="bar"><i id="barfill"></i></div>
-</section>
+<!-- c7 live -->
+<section class="card" id="c7" data-k="EVERY THURSDAY"><h1 class="hl" style="font-size:180px;margin-bottom:60px"><span class="ln">Plus a</span><span class="ln red">live chart</span><span class="ln">session.</span></h1>
+  <div class="pill" id="live"><b></b>LIVE</div></section>
 
-<p id="disc">New Deriv accounts opened through our link only. One free week per person while places last. Deriv isn't available in every country. CEINT Forex Academy is a Deriv Affiliate and may earn a commission. Trading Options/CFDs carries substantial risk; you could lose your entire investment. Education only, not financial advice.</p>
+<!-- c8 rehook -->
+<section class="card" id="c8" data-k="READ THIS FIRST"><h1 class="hl" style="font-size:170px"><span class="ln">But here's</span><span class="ln">the part most</span><span class="ln">people <span class="red">miss.</span></span></h1></section>
+
+<!-- c9-11 cream steps -->
+<section class="card cream" id="c9" data-k="HOW TO CLAIM · STEP 1"><div class="num">01</div><h1 class="hl" style="font-size:150px"><span class="ln">Open a <span class="red">new</span></span><span class="ln">Deriv account</span></h1>
+  <div class="stamp">THROUGH OUR LINK</div></section>
+<section class="card cream" id="c10" data-k="HOW TO CLAIM · STEP 2"><div class="num">02</div><h1 class="hl" style="font-size:150px"><span class="ln">Message</span><span class="ln">"<span class="red">FREE</span>" to</span><span class="ln">our bot</span></h1>
+  <div class="stamp">@CeintAcademyPostBot</div></section>
+<section class="card cream" id="c11" data-k="HOW TO CLAIM · STEP 3"><div class="num">03</div><h1 class="hl" style="font-size:150px"><span class="ln">Send your</span><span class="ln"><span class="red">Deriv ID</span></span></h1>
+  <div class="stamp">CR1234567</div><br><div class="stamp red" id="inStamp">✓ YOU'RE IN FOR 7 DAYS</div></section>
+
+<!-- c12 scarcity -->
+<section class="card" id="c12" data-k="FIRST 50 ONLY"><h1 class="hl" style="font-size:230px"><span class="ln">50 places.</span><span class="ln red">That's it.</span></h1></section>
+
+<!-- c13 CTA -->
+<section class="card" id="c13" data-k="CLAIM YOURS"><h1 class="hl" style="font-size:150px"><span class="ln">Search</span><span class="ln red" style="font-size:104px">CeintForexAcademy</span><span class="ln">on Telegram</span></h1>
+  <div class="pill" style="margin-top:60px" id="pin">STEPS IN THE PINNED POST</div></section>
+
+<div id="cap"><div id="captext"></div></div>
+<div id="footer">DERIV AFFILIATE · WE MAY EARN A COMMISSION · NEW ACCOUNTS ONLY · DERIV ISN'T AVAILABLE IN EVERY COUNTRY · TRADING INVOLVES RISK; YOU COULD LOSE YOUR CAPITAL · EDUCATION ONLY</div>
 
 <script>
 const $=id=>document.getElementById(id);
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
-const ease=x=>{x=clamp(x);return 1-Math.pow(1-x,3)};
-const back=x=>{x=clamp(x);const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
-const END=30;
+const ease=x=>1-Math.pow(1-clamp(x),3);
+const back=x=>{x=clamp(x);const c=1.6;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
 
-let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-const N=40,candles=[];let p=650;
-for(let i=0;i<N;i++){const o=p;const d=(rnd()-0.38)*65;const c=o-d;const h=Math.min(o,c)-rnd()*40;const l=Math.max(o,c)+rnd()*40;candles.push({o,c,h,l});p=c;}
-function drawChart(t){
-  const shown=clamp(t/14)*N;const w=1080/N;let s='';
-  for(let i=0;i<Math.floor(shown);i++){const k=candles[i];const x=i*w+w/2;const col=k.c<k.o?'#22c55e':'#ef4444';
-    s+=`<line x1="${x}" x2="${x}" y1="${k.h}" y2="${k.l}" stroke="${col}" stroke-width="4"/><rect x="${x-w*0.3}" y="${Math.min(k.o,k.c)}" width="${w*0.6}" height="${Math.max(6,Math.abs(k.o-k.c))}" fill="${col}" rx="3"/>`;}
-  $('chart').innerHTML=s;
+// timeline: [id, start, end, caption, cream?]
+const T=[
+ ['c1',0.0,2.4,'Want to try VIP *before* you pay?'],
+ ['c2',2.4,4.8,'Seven days free. First *50 people* only.'],
+ ['c3',4.8,8.0,'A new *two-minute* lesson every day.'],
+ ['c4',8.0,10.6,'On *real Deriv charts*: Volatility 75, Boom and Crash, Jump.'],
+ ['c5',10.6,12.8,'Every *TradingView* tool, shown on screen.'],
+ ['c6',12.8,15.0,'Sizing for *small and big* accounts.'],
+ ['c7',15.0,17.2,'Plus a *live* chart session every Thursday.'],
+ ['c8',17.2,19.4,'It\'s for *new accounts* only.'],
+ ['c9',19.4,21.6,'Step one: open a *new* Deriv account through our link.',1],
+ ['c10',21.6,23.8,'Step two: message *FREE* to our bot.',1],
+ ['c11',23.8,26.0,'Step three: send your *Deriv ID*. You\'re in.',1],
+ ['c12',26.0,28.0,'When the 50 places are *gone*, it closes.'],
+ ['c13',28.0,30.0,'Search *CeintForexAcademy* on Telegram.'],
+];
+window.CARDS=T;
+
+// dots
+for(let i=0;i<50;i++)$('dots').appendChild(document.createElement('i'));
+
+// candles
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+function mkCandles(n,start,top,bot){const a=[];let p=start;for(let i=0;i<n;i++){const o=p,c=o-(rnd()-0.42)*46,h=Math.min(o,c)-rnd()*22,l=Math.max(o,c)+rnd()*22;a.push({o,c,h,l});p=c}
+  const lo=Math.min(...a.map(c=>c.h)),hi=Math.max(...a.map(c=>c.l)),f=y=>top+(y-lo)/(hi-lo)*(bot-top);return a.map(c=>({o:f(c.o),c:f(c.c),h:f(c.h),l:f(c.l)}))}
+const C1=mkCandles(30,420,80,510), C2=mkCandles(30,400,90,420);
+function candlesSVG(cs,k){const w=860/cs.length;let s='';for(let i=0;i<Math.floor(k*cs.length);i++){const c=cs[i],x=40+i*w,col=c.c<c.o?'#22c55e':'#e3262b';
+  s+=`<line x1="${x}" x2="${x}" y1="${c.h}" y2="${c.l}" stroke="${col}" stroke-width="3"/><rect x="${x-w*.32}" y="${Math.min(c.o,c.c)}" width="${w*.64}" height="${Math.max(4,Math.abs(c.o-c.c))}" fill="${col}"/>`}return s}
+
+function setCap(txt,p,cream){
+  const plain=txt.replace(/\*/g,''); const n=Math.round(plain.length*clamp(p));
+  let out='',cnt=0,inK=false;
+  for(const ch of txt){ if(ch==='*'){inK=!inK;out+=inK?'<span class="k">':'</span>';continue}
+    if(cnt<n){out+=ch;cnt++} }
+  if(inK)out+='</span>';
+  $('captext').innerHTML=out; $('cap').classList.toggle('light',!!cream);
 }
-const S={s1:[0,3],s2:[3,7],s3:[7,13],s4:[13,17.5],s5:[17.5,24],s6:[24,27],s7:[27,END]};
-function sceneAlpha(t,[a,b]){const fi=a===0?1:ease((t-a)/0.35), fo=b>=END?1:1-ease((t-(b-0.3))/0.3);return Math.min(fi,fo)}
-function slide(el,t,start){const k=back((t-start)/0.5);el.style.opacity=ease((t-start)/0.35);el.style.transform=`translateX(${(1-k)*-140}px)`}
 
 window.render=function(t){
-  drawChart(t);
-  $('chart').style.transform=`translateY(${Math.sin(t*0.6)*10}px)`;
-  for(const id in S){const el=$(id);const a=sceneAlpha(t,S[id]);el.style.opacity=a;el.style.visibility=a>0.001?'visible':'hidden';
-    const z=1+(1-ease((t-S[id][0])/0.5))*(S[id][0]===0?0:0.08);el.style.transform=`scale(${z})`;}
-  $('free').style.transform=`scale(${0.4+0.6*back((t-3.1)/0.6)})`;
-  $('free').style.textShadow=`0 0 ${40+30*Math.sin(t*5)}px #f5c54288`;
-  ['d1','d2','d3','d4','d5','d6'].forEach((d,i)=>slide($(d),t,7.3+i*0.55));
-  const live=$('d4');live.style.boxShadow=t>9?`0 0 ${20+20*Math.sin(t*6)}px #ef444466`:'none';
-  ['g1','g2','g3','g4'].forEach((d,i)=>slide($(d),t,13.3+i*0.5));
-  ['h1','h2','h3','h4'].forEach((d,i)=>slide($(d),t,17.8+i*1.0));
-  $('cta').style.transform=`scale(${1+Math.max(0,Math.sin((t-27.5)*5))*0.05*(t>27.5?1:0)})`;
-  $('barfill').style.width=(20+ease((t-27.4)/2.2)*58)+'%';
+  let active=null;
+  for(const [id,a,b,cap,cr] of T){
+    const el=$(id); const on=t>=a&&t<b+ (b>=30?1:0);
+    const fi=ease((t-a)/0.25), fo=b>=30?1:1-ease((t-(b-0.15))/0.15);
+    el.style.opacity=on?Math.min(fi,fo):0; el.style.visibility=on?'visible':'hidden';
+    el.style.transform=`translateY(${(1-ease((t-a)/0.35))*40}px)`;
+    if(on){active=[id,a,b,cap,cr];
+      el.querySelectorAll('.ln').forEach((ln,i)=>{const s=a+0.05+i*0.16;const k=back((t-s)/0.4);ln.style.opacity=ease((t-s)/0.2);ln.style.transform=`translateY(${(1-k)*60}px)`});
+    }
+  }
+  if(active){const [id,a,b,cap,cr]=active;
+    $('kicker').textContent=$(id).dataset.k;
+    setCap(cap,(t-a-0.15)/Math.min(1.2,(b-a)*0.55),cr);
+    $('cap').style.opacity=ease((t-a)/0.15);
+    const cream=!!cr; $('cream').style.opacity=cream?1:0; $('dark').style.opacity=cream?0:1;
+    $('footer').style.color=cream?'#b81d22':'var(--red)';
+    $('logo').style.background=cream?'var(--ink)':'#120405';
+  }
+  // c2 dots
+  [...$('dots').children].forEach((d,i)=>{const s=2.7+i*0.03;d.style.opacity=ease((t-s)/0.1);d.style.transform=`scale(${back((t-s)/0.25)})`});
+  // c3 rows
+  [...document.querySelectorAll('#c3 tr')].forEach((r,i)=>{const s=5.3+i*0.35;r.style.opacity=ease((t-s)/0.2);r.style.transform=`translateX(${(1-back((t-s)/0.35))*-60}px)`});
+  // c4 chart
+  $('chartsvg').innerHTML=candlesSVG(C1,ease((t-8.15)/1.9));
+  // c5 tools: candles + BOS line + zone
+  let s5=candlesSVG(C2,1);
+  const bz=ease((t-11.0)/0.5), z=ease((t-11.6)/0.5), fib=ease((t-12.1)/0.4);
+  const yB=Math.min(...C2.slice(0,14).map(c=>c.h));
+  s5+=`<line x1="${40+6*28}" x2="${40+6*28+bz*560}" y1="${yB}" y2="${yB}" stroke="#f7f5f2" stroke-width="4" stroke-dasharray="14 10"/>`;
+  if(bz>0.6)s5+=`<text x="${40+6*28+10}" y="${yB-14}" fill="#f7f5f2" font-family="JBM" font-size="26" opacity="${bz}">BOS</text>`;
+  s5+=`<rect x="300" y="455" width="${z*560}" height="56" fill="#e3262b33" stroke="#e3262b" stroke-width="3"/>`;
+  if(z>0.6)s5+=`<text x="312" y="447" fill="#e3262b" font-family="JBM" font-size="24" opacity="${z}">ORDER BLOCK</text>`;
+  s5+=`<line x1="60" x2="${60+fib*800}" y1="300" y2="300" stroke="#8b8b8b" stroke-width="2"/><text x="640" y="292" fill="#8b8b8b" font-family="JBM" font-size="20" opacity="${fib}">0.5 · EQUILIBRIUM</text>`;
+  $('toolsvg').innerHTML=s5;
+  // c7 live pulse
+  $('live').querySelector('b').style.opacity=0.35+0.65*Math.abs(Math.sin(t*4));
+  // c11 stamp
+  const st=back((t-25.0)/0.4);$('inStamp').style.opacity=ease((t-25.0)/0.2);$('inStamp').style.transform=`scale(${0.6+0.4*st}) rotate(-2deg)`;
+  // c13 pin pulse
+  $('pin').style.transform=`scale(${1+0.03*Math.max(0,Math.sin((t-28.4)*6))*(t>28.4?1:0)})`;
 };
 window.render(0);
 </script>
